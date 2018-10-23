@@ -13,18 +13,22 @@ class Route
 {   
     private $routes;
 
-    //Quando instanciar a class
-    public function __contruct(array $routes)
-    {
-         $this->routes = $routes;
+    public function __construct(array $routes)
+    {   
+        $this->routes = $routes;
+        $this->run();
     }
 
     //Coletando a URL
-    public function getUrl()
+    private function getUrl()
     {
         return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 
     //Comparando URL
-    public
+    private function run()
+    {   
+        echo $this->getUrl();
+    }
+
 }

@@ -8,6 +8,6 @@
  * 
  * **/
 
-$routes[] = ['/','HomeController@index'];
+$routes[] = ['/', 'HomeController@index'];
 
 return $routes;

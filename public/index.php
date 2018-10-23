@@ -5,4 +5,4 @@
 require_once __DIR__."/../vendor/autoload.php";
 
 //2º Importa o arquivo Bootstrap onde tudo precisa ser inicializado
-require_once __DIR__."/../core/Bootstrap.php";
+require_once __DIR__."/../Core/Bootstrap.php";
