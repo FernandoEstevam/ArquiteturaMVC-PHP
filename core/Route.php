@@ -28,29 +28,24 @@ class Route
 
     //Comparando URL
     private function run()
-    {   
+    { 
         $url = $this->getUrl();
         $urlArray = explode('/', $url);
-        print_r($urlArray);
-        echo "<br/>";
-
-        foreach($this->routes as $routes){
-            $routeArray = explode('/', $routes[0]);
-            echo "<br/>";
-            print_r($routeArray);
-
+        
+        foreach($this->routes as $route){
+            $routeArray = explode('/', $route[0]);
+            
             for($i = 0; $i < count($routeArray); $i++){
-                if((strpos($routeArray[$i], "{") !== false) && (count($urlArray) == count($routeArray))){
-                    $routeArray[$i] = $urlArray[$i];
+                if((strpos($routeArray[$i], "{") !==false) && (count($urlArray) == count($routeArray))){
+                   $routeArray[$i] = $urlArray[$i]; 
                 }
                 $route[0] = implode($routeArray, '/');
             }
             if($url == $route[0]){
-                echo "<br/>Rota valida";
-            } else {
-                echo "<br/>Rota invalida";
+                echo $route[0] . "<br>";
+                echo $route[1] . "<br>";
+                break;
             }
         }
+    }   
     }
-
-}
