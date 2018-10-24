@@ -3,7 +3,7 @@
  *  ------------ Esclarecendo duvidas -------------- 
  *  parse_url() captura o endereço na url e transforma em uma array
  *  PHP_URL_PATH seta o indice do array path/ "http://php.net/manual/pt_BR/function.parse-url.php"
- * 
+ *  na variavel do obj colocar @ antes do $ \stdClass - Classe base de um objeto sem valor sem nome
  * Método run() faz a comparação da url verifica se existe algum parametro e faz a troca dentro da {}
  * **/
 
@@ -29,6 +29,22 @@ class Route
             $newRoutes[] = $r;
         }
         $this->routes = $newRoutes;
+    }
+
+    //metodo Request POST/GET
+    private function getRequest()
+    {
+        $obj = new \stdClass;
+        //Percorre o metodo get a chave e o valor
+        foreach ($_GET as $key => $value) {
+            @$obj->get->$key = $value;
+        }
+        //Percorre o metodo post a chave e o valor
+        foreach ($_POST as $key => $value) {
+            @$obj->post->$key = $value;
+        }
+
+        return $obj;
     }
 
     //Coletando a URL
@@ -68,18 +84,19 @@ class Route
             $controller = Container::newController($controller);
             switch (count($param)) {
                 case 1:
-                    $controller->$action($param[0]);
+                    $controller->$action($param[0], $this->getRequest());
                     break;
                 case 2:
-                    $controller->$action($param[0], $param[1]);
+                    $controller->$action($param[0], $param[1], $this->getRequest());
                     break;
                 case 3:
-                    $controller->$action($param[0], $param[1], $param[2]);
+                    $controller->$action($param[0], $param[1], $param[2], $this->getRequest());
                     break;               
                 default:
                     $controller->$action();
             }
-            //}
+        } else {
+            echo "Página não encotrada!! Error 404";
         }
     }   
 }
