@@ -16,8 +16,19 @@ class Route
 
     public function __construct(array $routes)
     {   
-        $this->routes = $routes;
+        $this->setRoutes($routes);
         $this->run();
+    }
+
+    //Seta a rota, recebe as rotas
+    private function setRoutes($routes)
+    {
+        foreach ($routes as $route) {
+            $explode = explode('@', $route[1]);
+            $r = [$route[0], $explode[0], $explode[1]];
+            $newRoutes[] = $r;
+        }
+        $this->routes = $newRoutes;
     }
 
     //Coletando a URL
@@ -34,18 +45,41 @@ class Route
         
         foreach($this->routes as $route){
             $routeArray = explode('/', $route[0]);
-            
+            $param = [];
             for($i = 0; $i < count($routeArray); $i++){
                 if((strpos($routeArray[$i], "{") !==false) && (count($urlArray) == count($routeArray))){
-                   $routeArray[$i] = $urlArray[$i]; 
+                   $routeArray[$i] = $urlArray[$i];
+                   $param[] = $urlArray[$i]; 
                 }
                 $route[0] = implode($routeArray, '/');
             }
+            //Se a rota for encotrada faça
             if($url == $route[0]){
-                echo $route[0] . "<br>";
-                echo $route[1] . "<br>";
+                //foi encotrada a rota
+                $found = true;
+                $controller = $route[1];
+                $action = $route[2];
+                //break foreach
                 break;
             }
         }
+      
+        if($found) {
+            $controller = Container::newController($controller);
+            switch (count($param)) {
+                case 1:
+                    $controller->$action($param[0]);
+                    break;
+                case 2:
+                    $controller->$action($param[0], $param[1]);
+                    break;
+                case 3:
+                    $controller->$action($param[0], $param[1], $param[2]);
+                    break;               
+                default:
+                    $controller->$action();
+            }
+            //}
+        }
     }   
-    }
+}
