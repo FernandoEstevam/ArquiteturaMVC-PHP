@@ -7,8 +7,9 @@
 **/
 
 namespace App\Controllers;
+use Core\BaseController;
 
-class PostsController
+class PostsController extends BaseController
 {
     public function index()
     {
