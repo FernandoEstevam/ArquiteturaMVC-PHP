@@ -6,11 +6,14 @@
 *
 **/
 namespace App\Controllers;
+use Core\BaseController;
 
-class HomeController
-{
+class HomeController extends BaseController
+{   
     public function index()
-    {
-        echo "Home";
+    {   //Chama a página home do views/home/index.phtml
+        $this->view->nome = "Fernando Estevam";
+        //Chama a página home do views/home/index.phtml
+        $this->renderView('home/index', 'layout');
     }
 }
