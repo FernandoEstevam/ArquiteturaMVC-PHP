@@ -13,6 +13,8 @@ abstract class BaseController
     protected $view;
     private $viewPath; //Recebe o caminho onde esta a view
     private $laytouPath; //Recebe o layout como parametro (opcional  )
+    private $pageTitle = null;
+
     public function __construct()
     {   
         $this->view = new \stdClass;
@@ -52,6 +54,21 @@ abstract class BaseController
         }
     }
 
+    //Método para setar o titulo da página
+    protected function setPageTitle($pageTitle)
+    {
+        $this->pageTitle = $pageTitle;
+    }
+
+    //Método para recuperar o titulo da página
+    protected function getPageTitle($separator = null)
+    {
+        if($separator){
+            echo $this->pageTitle . " " . $separator . " ";
+        } else {
+            echo $this->pageTitle;
+        }
+    }
     
     
 }
