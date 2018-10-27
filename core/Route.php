@@ -80,7 +80,7 @@ class Route
             }
         }
       
-        if($found) {
+        if(isset($found)) {
             $controller = Container::newController($controller);
             switch (count($param)) {
                 case 1:
@@ -96,7 +96,8 @@ class Route
                     $controller->$action();
             }
         } else {
-            echo "Página não encotrada!! Error 404";
+            //Chamando o metodo da Class Container
+           Container::pageNotFound();
         }
     }   
 }
