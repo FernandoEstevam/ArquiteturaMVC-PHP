@@ -14,8 +14,9 @@ class HomeController extends BaseController
     {   //Seta o titulo da página
         $this->setPageTitle('Home');
         //Chama a página home do views/home/index.phtml
-        $this->view->nome = "Fernando Estevam";
-        //Chama a página home do views/home/index.phtml
         $this->renderView('home/index', 'layout');
+        //Chama a página home do views/home/index.phtml
+        // $this->view->nome = "Fernando Estevam";
+        
     }
 }
