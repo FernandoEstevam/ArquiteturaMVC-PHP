@@ -7,7 +7,7 @@ use PDOException;
 
 class DataBase
 {
-    public function getDataBase()
+    public static function getDataBase()
     {   
         //Retorna o arquivo database.php
         $conf = include_once __DIR__."/../App/database.php";
@@ -27,7 +27,7 @@ class DataBase
             }catch(PDOException $e){
                 echo "Error: ".$e->getMessage();
             }
-        }else if($conf['diver']== 'mysql'){
+        }else if($conf['driver'] == 'mysql'){
             $host = $conf['mysql']['host'];
             $db = $conf['mysql']['database'];
             $user = $conf['mysql']['user'];
@@ -36,10 +36,10 @@ class DataBase
             $collation = $conf['mysql']['collation'];
 
             try{
-                $pdo = new PDO("msql:host=$host;dbname=$db;charset=$charset", $user, $pass);
+                $pdo = new PDO("mysql:host=$host;dbname=$db;charset=$charset", $user, $pass);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES '$charset' COLLATE '$collation'");
-                $pdp->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
+                $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
                 return $pdo;
             }catch(PDOException $e){
                 echo "Error: ".$e->getMessage();
