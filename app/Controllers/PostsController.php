@@ -5,15 +5,18 @@
 *
 *
 **/
-
 namespace App\Controllers;
+
 use Core\BaseController;
+use Core\Container;
+
 
 class PostsController extends BaseController
 {
-    public function index()
-    {
-        echo "Posts";
+    public function index(){
+        $model = Container::getModel("Post");
+        $posts = $model->All();
+        echo json_encode($posts);
     }
 
     public function show($id, $request)
