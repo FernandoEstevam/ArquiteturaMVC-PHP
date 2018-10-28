@@ -21,4 +21,9 @@ class Container
             echo "Error 404: Page not found!";
         }
     }
+    public static function getModel($model)
+    {
+     $objModel = "\\App\\Models\\" . $model;
+     return new $objModel(DataBase::getDatabase());
+    }
 }
