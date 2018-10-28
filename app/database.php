@@ -11,11 +11,11 @@ return [
     ],
 
     'mysql'=> [
-        'host'=>'locahost',
+        'host'=>'localhost',
         'database'=>'curso_microframework',
         'user'=>'root',
         'password'=>'',
         'charset'=>'utf8',
-        'colaltion'=>'utf_unicode_ci'
+        'collation'=>'utf_unicode_ci'
     ]
 ];
